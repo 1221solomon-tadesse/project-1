@@ -1,17 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { typeOrmConfigFactory } from './common/db/typeorm.config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5433,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'payment_db',
-      autoLoadEntities: true,
-      synchronize: true, // dev only
+    ConfigModule.forRoot({ isGlobal: true }), 
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule], 
+      inject: [ConfigService],
+      useFactory: typeOrmConfigFactory,
     }),
   ],
 })
