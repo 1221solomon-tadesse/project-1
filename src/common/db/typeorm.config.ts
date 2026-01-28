@@ -9,5 +9,5 @@ export const typeOrmConfigFactory = (config: ConfigService): TypeOrmModuleOption
   password: config.get('DB_PASSWORD'),
   database: config.get('DB_NAME'),
   autoLoadEntities: true,
-  synchronize: true, // dev only
+  synchronize: true, 
 });
